@@ -10,9 +10,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build -c $(buildConfiguration) -o /app
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet publish $(Build.ArtifactStagingDirectory)/app
+- script: dotnet publish -c $(Build.ArtifactStagingDirectory) -o /app
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: PublishBuildArtifacts@1
   inputs:
