@@ -11,11 +11,9 @@ variables:
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'  
-- task: CopyFiles@2
-  inputs:
-    contents: $(Build.Repository.LocalPath)/**/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)
-    targetFolder: $(Build.ArtifactStagingDirectory)
+  displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet publish $(Build.ArtifactStagingDirectory)/app
+  displayName: 'dotnet publish $(buildConfiguration)'
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: $(Build.ArtifactStagingDirectory)
