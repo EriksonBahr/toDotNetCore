@@ -11,4 +11,12 @@ variables:
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'  
+- task: CopyFiles
+  inputs:
+    contents: _buildOutput\**
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts
+  inputs:
+    pathtoPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: Artifacts
