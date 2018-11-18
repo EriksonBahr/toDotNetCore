@@ -14,7 +14,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'  
 - task: CopyFiles@2
   inputs:
-    contents: _buildOutput\**
+    contents: **/$(BuildConfiguration)/**/?(*.exe|*.dll|*.pdb)
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   inputs:
