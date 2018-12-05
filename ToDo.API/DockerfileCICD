@@ -1,5 +1,9 @@
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+ARG appPath = .
+
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
-COPY . .
+COPY $appPath .
 ENTRYPOINT ["dotnet", "ToDo.API.dll"]
 EXPOSE 80
