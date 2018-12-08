@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.API", "ToDo.API\ToDo.API.csproj", "{E0FBE609-3C5E-4317-B15A-5AADEDC4803B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.API", "ToDo.API\src\ToDo.API.csproj", "{E0FBE609-3C5E-4317-B15A-5AADEDC4803B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
