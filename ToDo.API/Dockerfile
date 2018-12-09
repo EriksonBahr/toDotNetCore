@@ -4,10 +4,10 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["ToDo.API/ToDo.API.csproj", "ToDo.API/"]
+#COPY ["ToDo.API/src/ToDo.API.csproj", "ToDo.API/"]
+COPY ToDo.API/src .
 RUN dotnet restore "ToDo.API/ToDo.API.csproj"
-COPY . .
-WORKDIR "/src/ToDo.API"
+WORKDIR "src/ToDo.API"
 RUN dotnet build "ToDo.API.csproj" -c Release -o /app
 
 FROM build AS publish
