@@ -1,13 +1,14 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 21372
+EXPOSE 44386
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-#COPY ["ToDo.API/src/ToDo.API.csproj", "ToDo.API/"]
-COPY ToDo.API/src .
-RUN dotnet restore "ToDo.API/ToDo.API.csproj"
-WORKDIR "src/ToDo.API"
+COPY ["ToDo.API.csproj", "Services/ToDo/ToDo.API/"]
+RUN dotnet restore "Services/ToDo/ToDo.API/ToDo.API.csproj"
+COPY . .
+WORKDIR "/src/Services/ToDo/ToDo.API"
 RUN dotnet build "ToDo.API.csproj" -c Release -o /app
 
 FROM build AS publish

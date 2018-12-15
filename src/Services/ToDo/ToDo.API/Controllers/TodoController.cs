@@ -4,26 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ToDo.API.Controller
+namespace ToDo.API.Controllers
 {
     using model;
     using Infrastructure;
     using System.Net;
     using Microsoft.EntityFrameworkCore;
 
-    [Route("api/v1[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class TodoItemController: ControllerBase
+    public class TodoController: ControllerBase
     {
         private readonly TodoContext _todoContext;
 
-        public TodoItemController(TodoContext context)
+        public TodoController(TodoContext context)
         {
             _todoContext = context ?? throw new ArgumentNullException(nameof(context));
+
+            //technical debit - need to add this to the infra setup
+            _todoContext.Database.EnsureCreated();
         }
 
         [HttpGet]
-        [Route("Items")]
         [ProducesResponseType(typeof(IEnumerable<TodoItem>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items()
         {
@@ -35,7 +37,7 @@ namespace ToDo.API.Controller
         }
 
         [HttpGet]
-        [Route("items/{id:int}")]
+        [Route("{id:int}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(TodoItem),(int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetItemById(int id)
@@ -55,8 +57,6 @@ namespace ToDo.API.Controller
             return NotFound();
         }
 
-        //POST api/v1/[controller]/items
-        [Route("items")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> Createtodo([FromBody]TodoItem todo)
@@ -67,6 +67,7 @@ namespace ToDo.API.Controller
                 Title = todo.Title,
                 Content = todo.Content,
             };
+
             _todoContext.TodoItems.Add(item);
 
             await _todoContext.SaveChangesAsync();

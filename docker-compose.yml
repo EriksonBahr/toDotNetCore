@@ -1,16 +1,22 @@
-version: "3"
+version: '3.4'
+
 services:
   sql.data:
     image: microsoft/mssql-server-linux:2017-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
     ports:
       - "1433:1433"
-
   todo.api:
-    image: ebahr/todo.api:latest
-    ports:
-      - "8080:80"
+    image: todoapi:dev
     build:
-      context: .
-      dockerfile: ToDo.API/Dockerfile
+      context: src/Services/ToDo/ToDo.API
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionString=Server=sql.data;Initial Catalog=ToDotNetCore.Services.ToDoDB;User Id=sa; Password=Pass@word
+    ports:
+      - "21372:80"
+      - "44386:443"
     depends_on:
       - sql.data
