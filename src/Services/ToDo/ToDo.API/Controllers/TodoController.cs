@@ -22,7 +22,7 @@ namespace ToDo.API.Controllers
             _todoContext = context ?? throw new ArgumentNullException(nameof(context));
 
             //technical debit - need to add this to the infra setup
-            _todoContext.Database.EnsureCreated();
+            _todoContext.Database.Migrate();
         }
 
         [HttpGet]
