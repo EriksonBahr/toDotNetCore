@@ -8,7 +8,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  solutionName: 'toDotNetCore'
+  solutionName: 'toDotNetCore.sln'
 
 steps:
 - script: dotnet build $(solutionName) -c $(buildConfiguration)
