@@ -8,11 +8,12 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  solutionName: 'toDotNetCore'
 
 steps:
-- script: dotnet build -c $(buildConfiguration)
+- script: dotnet build $(solutionName) -c $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet publish -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
+- script: dotnet publish $(solutionName)  -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: PublishBuildArtifacts@1
   inputs:
