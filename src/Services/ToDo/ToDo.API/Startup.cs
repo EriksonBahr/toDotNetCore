@@ -9,6 +9,7 @@ namespace ToDo.API
 {
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
+    using Swashbuckle.AspNetCore.Swagger;
     using System.Reflection;
 
     public class Startup
@@ -33,7 +34,15 @@ namespace ToDo.API
                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                     });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "ToDotNetCore API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +56,18 @@ namespace ToDo.API
             {
                 app.UseHsts();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDotNetCore API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
 
             app.UseHttpsRedirection();
             app.UseMvc();

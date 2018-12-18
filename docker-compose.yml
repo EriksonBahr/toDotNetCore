@@ -9,7 +9,7 @@ services:
     ports:
       - "1433:1433"
   todo.api:
-    image: todoapi:dev
+    image: ebahr/todo.api:latest
     build:
       context: src/Services/ToDo/ToDo.API
       dockerfile: Dockerfile
