@@ -71,6 +71,13 @@ namespace ToDo.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<TodoContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }

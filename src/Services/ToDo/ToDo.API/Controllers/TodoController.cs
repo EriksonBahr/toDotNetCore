@@ -22,11 +22,10 @@ namespace ToDo.API.Controllers
             _todoContext = context ?? throw new ArgumentNullException(nameof(context));
 
             //technical debit - need to add this to the infra setup
-            _todoContext.Database.Migrate();
+            //_todoContext.Database.Migrate();
         }
 
         [HttpGet]
-//        [ProducesResponseType(typeof(IEnumerable<TodoItem>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items()
         {
             var items = await _todoContext.TodoItems
@@ -38,8 +37,6 @@ namespace ToDo.API.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-//        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-//        [ProducesResponseType(typeof(TodoItem),(int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetItemById(int id)
         {
             if (id <= 0)
